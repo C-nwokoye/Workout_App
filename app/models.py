@@ -17,12 +17,17 @@ class Equipment(Enum):
     BENCH = "bench"
     SQUAT_RACK = "squat_rack"
     CABLE = "cable"
-    PULLUP_BAR = "pullup_bar"
+    PULL_UP_BAR = "pullup_bar"
     SMITH_MACHINE = "smith_machine"
-    LEG_PRESS = "leg_press"
+    LOW_CABLE_ROW_MACHINE = "low_cable_row_machine"
+    LAT_PULLDOWN_MACHINE = "lat_pulldown_machine"
+    LEG_PRESS_MACHINE = "leg_press_machine"
+    LEG_EXTENSION_MACHINE = "leg_extension_machine"
+    LEG_CURL_MACHINE = "leg_curl_machine"
+    CALF_RAISE_MACHINE = "calf_raise_machine"
     BODYWEIGHT = "bodyweight"
 
-class Muscle_Group(Enum):
+class MuscleGroup(Enum):
     CHEST = "chest"
     BACK = "back"
     QUADRICEP = "quadricep"
@@ -34,7 +39,7 @@ class Muscle_Group(Enum):
     CALVES = "calves"
     CORE = "core"
 
-class Movement_Pattern(Enum):
+class MovementPattern(Enum):
     HORIZONTAL_PUSH = "horizontal_push"
     HORIZONTAL_PULL = "horizontal_pull"
 
@@ -64,15 +69,15 @@ class ExerciseType(Enum):
 class Exercise:
     id: str
     name: str
-    primary_muscle: Muscle_Group
+    primary_muscle: MuscleGroup
     # will be a set of muscle_groups, field(default_factory = set) just initializes an empty set
     # we use a set not a list because we dont care about order
 
     exercise_type: ExerciseType
 
-    movement_pattern: Movement_Pattern
+    movement_pattern: MovementPattern
 
-    secondary_muscles: set[Muscle_Group] = field(default_factory=set)
+    secondary_muscles: set[MuscleGroup] = field(default_factory=set)
 
     equipment_required: set[Equipment] = field(default_factory=set)
 
