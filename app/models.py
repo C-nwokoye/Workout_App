@@ -13,7 +13,7 @@ class ExperienceLevel(Enum):
 
 class Equipment(Enum):
     BARBELL = "barbell"
-    DUMBELL = "dumbbell"
+    DUMBBELL = "dumbbell"
     BENCH = "bench"
     SQUAT_RACK = "squat_rack"
     CABLE = "cable"

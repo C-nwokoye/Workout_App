@@ -19,7 +19,7 @@ INCLINE_DUMBBELL_BENCH_PRESS = Exercise(
     exercise_type=ExerciseType.COMPOUND, 
     movement_pattern=MovementPattern.HORIZONTAL_PUSH,
     secondary_muscles={MuscleGroup.TRICEPS, MuscleGroup.SHOULDERS}, 
-    equipment_required={Equipment.DUMBELL, Equipment.BENCH}
+    equipment_required={Equipment.DUMBBELL, Equipment.BENCH}
     )
 
 DUMBBELL_BENCH_PRESS = Exercise(
@@ -29,7 +29,7 @@ DUMBBELL_BENCH_PRESS = Exercise(
     exercise_type=ExerciseType.COMPOUND, 
     movement_pattern=MovementPattern.HORIZONTAL_PUSH,
     secondary_muscles={MuscleGroup.TRICEPS, MuscleGroup.SHOULDERS}, 
-    equipment_required={Equipment.DUMBELL, Equipment.BENCH}
+    equipment_required={Equipment.DUMBBELL, Equipment.BENCH}
     )
 
 OVERHEAD_PRESS = Exercise(
@@ -148,7 +148,7 @@ BULGARIAN_SPLIT_SQUAT = Exercise(
     exercise_type=ExerciseType.COMPOUND, 
     movement_pattern=MovementPattern.SQUAT,
     secondary_muscles={MuscleGroup.GLUTES, MuscleGroup.HAMSTRINGS}, 
-    equipment_required={Equipment.BENCH, Equipment.DUMBELL}
+    equipment_required={Equipment.BENCH, Equipment.DUMBBELL}
     )
 
 STANDING_CALF_RAISE = Exercise(
@@ -168,7 +168,7 @@ DUMBBELL_LATERAL_RAISE = Exercise(
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.SHOULDER_ABDUCTION,
     secondary_muscles={}, 
-    equipment_required={Equipment.DUMBELL}
+    equipment_required={Equipment.DUMBBELL}
     )
 
 DUMBBELL_BICEP_CURL = Exercise(
@@ -178,7 +178,7 @@ DUMBBELL_BICEP_CURL = Exercise(
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.ELBOW_FLEXION,
     secondary_muscles={}, 
-    equipment_required={Equipment.DUMBELL}
+    equipment_required={Equipment.DUMBBELL}
     )
 
 CABLE_BICEP_CURL = Exercise(
