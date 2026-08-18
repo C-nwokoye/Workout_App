@@ -63,6 +63,19 @@ class ExerciseType(Enum):
     ISOLATION = "isolation"
     COMPOUND = "compound"
 
+class WorkoutType(Enum):
+    UPPER_STRENGTH = "upper_strength"
+    LOWER_STRENGTH = "lower_strength"
+    PUSH_STRENGTH = "push_strength"
+    PULL_STRENGTH = "pull_strength"
+    LEGS_STRENGTH = "legs_strength"
+
+    UPPER_HYPERTROPHY = "upper_hypertrophy"
+    LOWER_HYPERTROPHY = "lower_hypertrophy"
+    PUSH_HYPERTROPHY = "push_hypertrophy"
+    PULL_HYPERTROPHY = "pull_hypertrophy"
+    LEGS_HYPERTROPHY = "legs_hypertrophy"
+
 # dataclass helps us build a class with default values instead of writing the constructor ourselves
 # purely for decoration, not enforced at runtime. 
 @dataclass
@@ -95,6 +108,13 @@ class UserProfile:
     avoided_exercise_ids: set[str] = field(default_factory=set)
 
     preferred_exercise_ids: set[str] = field(default_factory=set)
+
+@dataclass
+class WorkoutSlot:
+    movement_pattern: MovementPattern
+    exercise_type: ExerciseType
+    primary_muscles: set[MuscleGroup] = field(default_factory=set)
+
 
 
 
