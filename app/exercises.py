@@ -4,7 +4,9 @@ from app.models import *
 
 BARBELL_BENCH_PRESS = Exercise(
     id="barbell_bench_press", 
-    name="Barbell Bench Press", 
+    name="Barbell Bench Press",
+    strength_suitability=Suitability_Level.HIGH,
+    hypertrophy_suitability=Suitability_Level.HIGH, 
     primary_muscle=MuscleGroup.CHEST,
     exercise_type=ExerciseType.COMPOUND, 
     movement_pattern=MovementPattern.HORIZONTAL_PUSH,
@@ -15,6 +17,8 @@ BARBELL_BENCH_PRESS = Exercise(
 INCLINE_DUMBBELL_BENCH_PRESS = Exercise(
     id="incline_dumbbell_bench_press", 
     name="Incline Dumbbell Bench Press", 
+    strength_suitability=Suitability_Level.HIGH,
+    hypertrophy_suitability=Suitability_Level.HIGH, 
     primary_muscle=MuscleGroup.CHEST, 
     exercise_type=ExerciseType.COMPOUND, 
     movement_pattern=MovementPattern.HORIZONTAL_PUSH,
@@ -24,7 +28,9 @@ INCLINE_DUMBBELL_BENCH_PRESS = Exercise(
 
 DUMBBELL_BENCH_PRESS = Exercise(
     id="dumbbell_bench_press", 
-    name="Dumbbell Bench Press", 
+    name="Dumbbell Bench Press",
+    strength_suitability=Suitability_Level.MEDIUM,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.CHEST, 
     exercise_type=ExerciseType.COMPOUND, 
     movement_pattern=MovementPattern.HORIZONTAL_PUSH,
@@ -35,6 +41,8 @@ DUMBBELL_BENCH_PRESS = Exercise(
 OVERHEAD_PRESS = Exercise(
     id="overhead_press", 
     name="Overhead Press", 
+    strength_suitability=Suitability_Level.HIGH,
+    hypertrophy_suitability=Suitability_Level.HIGH, 
     primary_muscle=MuscleGroup.SHOULDERS, 
     exercise_type=ExerciseType.COMPOUND, 
     movement_pattern=MovementPattern.VERTICAL_PUSH,
@@ -44,7 +52,9 @@ OVERHEAD_PRESS = Exercise(
 
 CABLE_FLY = Exercise(
     id="cable_fly", 
-    name="Cable Fly", 
+    name="Cable Fly",
+    strength_suitability=Suitability_Level.LOW,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.CHEST, 
     exercise_type=ExerciseType.COMPOUND, 
     movement_pattern=MovementPattern.HORIZONTAL_PUSH,
@@ -53,7 +63,9 @@ CABLE_FLY = Exercise(
 
 BARBELL_ROW = Exercise(
     id="barbell_row", 
-    name="Barbell Row", 
+    name="Barbell Row",
+    strength_suitability=Suitability_Level.HIGH,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.BACK, 
     exercise_type=ExerciseType.COMPOUND, 
     movement_pattern=MovementPattern.HORIZONTAL_PULL,
@@ -61,9 +73,11 @@ BARBELL_ROW = Exercise(
     equipment_required={Equipment.BARBELL}
     )
 
-SEATED_CABLE_ROW = Exercise(
-    id="seated_cable_row", 
-    name="Seated Cable Row", 
+LOW_CABLE_ROW = Exercise(
+    id="LOW_CABLE_ROW", 
+    name="Low Cable Row",
+    strength_suitability=Suitability_Level.MEDIUM,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.BACK, 
     exercise_type=ExerciseType.COMPOUND, 
     movement_pattern=MovementPattern.HORIZONTAL_PULL,
@@ -73,7 +87,9 @@ SEATED_CABLE_ROW = Exercise(
 
 LAT_PULLDOWN = Exercise(
     id="lat_pulldown", 
-    name="Lat Pulldown", 
+    name="Lat Pulldown",
+    strength_suitability=Suitability_Level.MEDIUM,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.BACK, 
     exercise_type=ExerciseType.COMPOUND, 
     movement_pattern=MovementPattern.VERTICAL_PULL,
@@ -83,7 +99,9 @@ LAT_PULLDOWN = Exercise(
 
 PULL_UP = Exercise(
     id="pull_up", 
-    name="Pull Ups", 
+    name="Pull Ups",
+    strength_suitability=Suitability_Level.HIGH,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.BACK, 
     exercise_type=ExerciseType.COMPOUND, 
     movement_pattern=MovementPattern.VERTICAL_PULL,
@@ -93,7 +111,9 @@ PULL_UP = Exercise(
 
 BACK_SQUAT = Exercise(
     id="back_squat", 
-    name="Back Squat", 
+    name="Back Squat",
+    strength_suitability=Suitability_Level.HIGH,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.QUADRICEP, 
     exercise_type=ExerciseType.COMPOUND, 
     movement_pattern=MovementPattern.SQUAT,
@@ -103,7 +123,9 @@ BACK_SQUAT = Exercise(
 
 LEG_PRESS = Exercise( # not finished
     id="leg_press", 
-    name="Leg Press", 
+    name="Leg Press",
+    strength_suitability=Suitability_Level.HIGH,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.QUADRICEP, 
     exercise_type=ExerciseType.COMPOUND, 
     movement_pattern=MovementPattern.SQUAT, 
@@ -113,7 +135,9 @@ LEG_PRESS = Exercise( # not finished
 
 ROMANIAN_DEADLIFT = Exercise(
     id="romanian_deadlift", 
-    name="RDL", 
+    name="RDL",
+    strength_suitability=Suitability_Level.HIGH,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.GLUTES, 
     exercise_type=ExerciseType.COMPOUND, 
     movement_pattern=MovementPattern.HINGE,
@@ -123,7 +147,9 @@ ROMANIAN_DEADLIFT = Exercise(
 
 LEG_EXTENSION = Exercise(
     id="leg_extension", 
-    name="Leg Extension", 
+    name="Leg Extension",
+    strength_suitability=Suitability_Level.LOW,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.QUADRICEP, 
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.KNEE_EXTENSION,
@@ -133,7 +159,9 @@ LEG_EXTENSION = Exercise(
 
 LEG_CURL = Exercise(
     id="leg_curl", 
-    name="Leg Curl", 
+    name="Leg Curl",
+    strength_suitability=Suitability_Level.LOW,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.HAMSTRINGS, 
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.KNEE_FLEXION,
@@ -143,7 +171,9 @@ LEG_CURL = Exercise(
 
 BULGARIAN_SPLIT_SQUAT = Exercise(
     id="bulgarian_split_squat", 
-    name="Bulgarian Split Squat", 
+    name="Bulgarian Split Squat",
+    strength_suitability=Suitability_Level.MEDIUM,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.QUADRICEP, 
     exercise_type=ExerciseType.COMPOUND, 
     movement_pattern=MovementPattern.SQUAT,
@@ -153,7 +183,9 @@ BULGARIAN_SPLIT_SQUAT = Exercise(
 
 STANDING_CALF_RAISE = Exercise(
     id="standing_calf_raise", 
-    name="Standing Calf Raise", 
+    name="Standing Calf Raise",
+    strength_suitability=Suitability_Level.LOW,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.CALVES, 
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.CALF_RAISE,
@@ -163,7 +195,9 @@ STANDING_CALF_RAISE = Exercise(
 
 DUMBBELL_LATERAL_RAISE = Exercise(
     id="dumbbell_lateral_raise", 
-    name="Dumbbell Lat Raise", 
+    name="Dumbbell Lat Raise",
+    strength_suitability=Suitability_Level.LOW,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.SHOULDERS, 
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.SHOULDER_ABDUCTION,
@@ -173,7 +207,9 @@ DUMBBELL_LATERAL_RAISE = Exercise(
 
 DUMBBELL_BICEP_CURL = Exercise(
     id="dumbbell_bicep_curl", 
-    name="Dumbbell Bicep Curl", 
+    name="Dumbbell Bicep Curl",
+    strength_suitability=Suitability_Level.MEDIUM,
+hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.BICEPS, 
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.ELBOW_FLEXION,
@@ -183,7 +219,9 @@ DUMBBELL_BICEP_CURL = Exercise(
 
 CABLE_BICEP_CURL = Exercise(
     id="cable_bicep_curl", 
-    name="Cable Bicep Curl", 
+    name="Cable Bicep Curl",
+    strength_suitability=Suitability_Level.LOW,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.BICEPS, 
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.ELBOW_FLEXION,
@@ -193,7 +231,9 @@ CABLE_BICEP_CURL = Exercise(
 
 TRICEPS_PUSHDOWN = Exercise(
     id="triceps_pushdown", 
-    name="Triceps Pushdown", 
+    name="Triceps Pushdown",
+    strength_suitability=Suitability_Level.LOW,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.TRICEPS, 
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.ELBOW_EXTENSION,
@@ -203,7 +243,9 @@ TRICEPS_PUSHDOWN = Exercise(
 
 OVERHEAD_TRICEPS_EXTENSION = Exercise(
     id="overhead_triceps_extension", 
-    name="Overhead Triceps Extension", 
+    name="Overhead Triceps Extension",
+    strength_suitability=Suitability_Level.LOW,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.TRICEPS, 
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.ELBOW_EXTENSION,
@@ -218,7 +260,7 @@ EXERCISES = {
     OVERHEAD_PRESS.id: OVERHEAD_PRESS,
     CABLE_FLY.id: CABLE_FLY,
     BARBELL_ROW.id: BARBELL_ROW,
-    SEATED_CABLE_ROW.id: SEATED_CABLE_ROW,
+    LOW_CABLE_ROW.id: LOW_CABLE_ROW,
     LAT_PULLDOWN.id: LAT_PULLDOWN,
     PULL_UP.id: PULL_UP,
     BACK_SQUAT.id: BACK_SQUAT,

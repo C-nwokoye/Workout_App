@@ -76,6 +76,11 @@ class WorkoutType(Enum):
     PULL_HYPERTROPHY = "pull_hypertrophy"
     LEGS_HYPERTROPHY = "legs_hypertrophy"
 
+class Suitability_Level(Enum):
+    LOW = 1
+    MEDIUM = 2
+    HIGH = 3
+
 # dataclass helps us build a class with default values instead of writing the constructor ourselves
 # purely for decoration, not enforced at runtime. 
 @dataclass
@@ -83,6 +88,9 @@ class Exercise:
     id: str
     name: str
     primary_muscle: MuscleGroup
+
+    strength_suitability: Suitability_Level
+    hypertrophy_suitability: Suitability_Level
     # will be a set of muscle_groups, field(default_factory = set) just initializes an empty set
     # we use a set not a list because we dont care about order
 
@@ -113,6 +121,7 @@ class UserProfile:
 class WorkoutSlot:
     movement_pattern: MovementPattern
     exercise_type: ExerciseType
+    trainingEmphasis: TrainingGoal
     sets: int
     min_reps: int
     max_reps: int
@@ -126,6 +135,9 @@ class WorkoutExercise:
     min_reps: int
     max_reps: int
     rest_seconds: int
+
+    def __str__(self):
+        return f"{self.exercise.name} \n{self.sets} x {self.min_reps} - {self.max_reps} \nRest: {self.rest_seconds} seconds"
 
 
 

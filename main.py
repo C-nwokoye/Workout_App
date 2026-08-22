@@ -41,4 +41,5 @@ assert "incline_dumbbell_bench_press" in {e for e in eligible_exercises}
 workout = generate_workout(user_profile_1, UPPER_STRENGTH_TEMPLATE)
 
 for item in workout:
-    print(item.exercise.name)
+    print(item)
+    print()

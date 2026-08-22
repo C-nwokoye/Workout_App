@@ -19,44 +19,49 @@ def get_candidates_for_slot(eligible_exercise_ids: set[str], slot: WorkoutSlot) 
         exercise = EXERCISES[id]
         if (exercise.movement_pattern == slot.movement_pattern) and (exercise.exercise_type == slot.exercise_type):
             if exercise.primary_muscle in slot.primary_muscles: candidate_ids.add(id)
+    if not candidate_ids: raise ValueError("No exercises valid for selected slot")
     return candidate_ids
 
-# returns three lists of exercise object ids
-# ranks exercises based off of what is in the users preferred and avoided list
-def rank_by_preference(user: UserProfile, candidate_ids: set[str]) -> list[str]:
-    preferred = []
-    neutral = []
-    avoided = []
+# helper function for select_exercise
+# creates tuples to be used within a max function
+def rank_by_preference(user: UserProfile, candidate_ids: set[str], slot: WorkoutSlot) -> set[str]:
+    options = set()
     for id in candidate_ids:
-        if id in user.preferred_exercise_ids: preferred.append(id)
-        elif id in user.avoided_exercise_ids: avoided.append(id)
-        else: neutral.append(id)
-    return preferred, neutral, avoided
+        options.add((id not in user.avoided_exercise_ids, suitability_checker(slot, id).value, id in user.preferred_exercise_ids, id))
+    return options
 
-# will return None if no exercises are available
 # selects an exercise from available candidates for a slot
-def select_exercise(user: UserProfile, candidate_ids: set[str], already_selected: set[str]) -> str:
+# will raise an error if there are no available candidates for a given slot
+def select_exercise(user: UserProfile, candidate_ids: set[str], already_selected: set[str], slot: WorkoutSlot) -> str:
     candidate_ids -= already_selected # checks the what exercises are in both sets and removes those from candidates
-    preferred, neutral, avoided = rank_by_preference(user, candidate_ids)
-    choice = None
-    if preferred: choice = preferred[0]
-    elif neutral: choice = neutral[0]
-    elif avoided: choice = avoided[0]
-    return choice # the id of the exercise we have chosen
+    if not candidate_ids: raise ValueError("No valid exercise candidates remaining")
+    options = rank_by_preference(user, candidate_ids, slot)
 
+    choice = max(options)
+
+    return choice[3] # the id associated with the ranking
+
+# returns either the strength or hypertrophy suitability level depending upon what the slot requires
+def suitability_checker(slot: WorkoutSlot, exercise_id: str) -> int: 
+    if slot.trainingEmphasis == TrainingGoal.STRENGTH:
+        return EXERCISES[exercise_id].strength_suitability
+    elif slot.trainingEmphasis == TrainingGoal.HYPERTROPHY:
+        return EXERCISES[exercise_id].hypertrophy_suitability
+
+    
 def generate_workout(profile: UserProfile, template) -> list[WorkoutExercise]:
 
     eligible_exercise_ids = get_eligible_exercises(profile)
 
-    selected_exercises = set()
+    selected_exercises_ids = set()
 
     full_workout = []
 
     for slot in template:
-        selected = select_exercise(profile, get_candidates_for_slot(eligible_exercise_ids, slot), selected_exercises)
-        selected_exercises.add(selected)
+        selected_id = select_exercise(profile, get_candidates_for_slot(eligible_exercise_ids, slot), selected_exercises_ids, slot)
+        selected_exercises_ids.add(selected_id)
         full_workout.append(
-            WorkoutExercise(exercise=EXERCISES[selected], sets=slot.sets, min_reps=slot.min_reps, max_reps=slot.max_reps, rest_seconds=slot.rest_seconds)
+            WorkoutExercise(exercise=EXERCISES[selected_id], sets=slot.sets, min_reps=slot.min_reps, max_reps=slot.max_reps, rest_seconds=slot.rest_seconds)
             )
     return full_workout
 
