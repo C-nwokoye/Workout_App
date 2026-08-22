@@ -113,7 +113,20 @@ class UserProfile:
 class WorkoutSlot:
     movement_pattern: MovementPattern
     exercise_type: ExerciseType
+    sets: int
+    min_reps: int
+    max_reps: int
+    rest_seconds: int
     primary_muscles: set[MuscleGroup] = field(default_factory=set)
+
+@dataclass # is basically a workout slot combined with a specific exercise
+class WorkoutExercise:
+    exercise: Exercise
+    sets: int
+    min_reps: int
+    max_reps: int
+    rest_seconds: int
+
 
 
 

@@ -8,7 +8,9 @@ user_profile_1 = UserProfile(
     experience=ExperienceLevel.ADVANCED,
     days_per_week=5,
     max_workout_minutes=60,
-    available_equipment={Equipment.BENCH, Equipment.DUMBBELL, Equipment.BARBELL, Equipment.SQUAT_RACK},
+    available_equipment={Equipment.BENCH, Equipment.DUMBBELL, Equipment.BARBELL, Equipment.SQUAT_RACK, Equipment.CABLE,
+                         Equipment.CALF_RAISE_MACHINE, Equipment.LAT_PULLDOWN_MACHINE, Equipment.LEG_CURL_MACHINE, Equipment.LEG_EXTENSION_MACHINE,
+                         Equipment.LEG_PRESS_MACHINE, Equipment.LOW_CABLE_ROW_MACHINE, Equipment.PULL_UP_BAR, Equipment.SMITH_MACHINE},
     excluded_exercise_ids={BACK_SQUAT.id},
     avoided_exercise_ids={BULGARIAN_SPLIT_SQUAT.id},
     preferred_exercise_ids={INCLINE_DUMBBELL_BENCH_PRESS.id}
@@ -32,10 +34,11 @@ user_profile_2 = UserProfile(
 eligible_exercises = get_eligible_exercises(user_profile_1)
 
 # use assert for testing. if the condition is false, it will raise an AssertionError
-assert "back_squat" not in {e.id for e in eligible_exercises}
-assert "bulgarian_split_squat" in {e.id for e in eligible_exercises}
-assert "incline_dumbbell_bench_press" in {e.id for e in eligible_exercises}
+assert "back_squat" not in {e for e in eligible_exercises}
+assert "bulgarian_split_squat" in {e for e in eligible_exercises}
+assert "incline_dumbbell_bench_press" in {e for e in eligible_exercises}
 
-testSlot = WorkoutSlot(movement_pattern=MovementPattern.HORIZONTAL_PUSH, exercise_type=ExerciseType.COMPOUND, primary_muscles={MuscleGroup.CHEST})
-for exercise in get_candidates_for_slot(eligible_exercises, testSlot):
-    print(exercise.name)
+workout = generate_workout(user_profile_1, UPPER_STRENGTH_TEMPLATE)
+
+for item in workout:
+    print(item.exercise.name)
