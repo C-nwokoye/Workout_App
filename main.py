@@ -46,9 +46,51 @@ workout = generate_workout(user_profile_1, UPPER_STRENGTH_TEMPLATE, set())
 #     print()
 
 program = generate_workout_program(user_profile_1, FIVE_DAY_TEMPLATE)
-for i, day in enumerate(program):
+# for i, day in enumerate(program):
 
-    print(FIVE_DAY_TEMPLATE[i][0])
-    for item in day:
-        print(item)
-        print()
+#     print(FIVE_DAY_TEMPLATE[i][0])
+#     for item in day:
+#         print(item)
+#         print()
+
+completed_exercise_0 = CompletedExercise(
+    WorkoutExercise(INCLINE_DUMBBELL_BENCH_PRESS, TrainingGoal.HYPERTROPHY, 3, 8, 10, 90, 75),
+    [
+        CompletedSet(9, 75),
+        CompletedSet(9, 75),
+        CompletedSet(9, 80)
+    ]
+)
+completed_exercise_1 = CompletedExercise(
+    WorkoutExercise(LEG_PRESS, TrainingGoal.HYPERTROPHY, 3, 8, 10, 90, 75),
+    [
+        CompletedSet(10, 75),
+        CompletedSet(9, 75),
+        CompletedSet(9, 80)
+    ]
+)
+completed_exercise_2 = CompletedExercise(
+    WorkoutExercise(INCLINE_DUMBBELL_BENCH_PRESS, TrainingGoal.STRENGTH, 3, 8, 10, 90, 75),
+    [
+        CompletedSet(10, 80),
+        CompletedSet(10, 80),
+        CompletedSet(9, 80)
+    ]
+)
+
+CW0  = CompletedWorkout(Workout(
+    WorkoutType.PUSH_HYPERTROPHY,
+    [INCLINE_DUMBBELL_BENCH_PRESS, LEG_PRESS]
+), [completed_exercise_0, completed_exercise_1])
+
+CW1  = CompletedWorkout(Workout(
+    WorkoutType.LEGS_STRENGTH,
+    [LEG_PRESS, INCLINE_DUMBBELL_BENCH_PRESS]
+), [completed_exercise_1, completed_exercise_2])
+
+# print(should_increase_weight(completed_exercise_0))
+
+comp = get_latest_completed_exercise(INCLINE_DUMBBELL_BENCH_PRESS.id, TrainingGoal.HYPERTROPHY, [CW0, CW1])
+
+for s in comp.completed_sets:
+    print(s.reps, s.weight)

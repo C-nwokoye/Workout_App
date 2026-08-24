@@ -131,7 +131,7 @@ class WorkoutProgram:
 class WorkoutSlot:
     movement_pattern: MovementPattern
     exercise_type: ExerciseType
-    trainingEmphasis: TrainingGoal
+    training_emphasis: TrainingGoal
     sets: int
     min_reps: int
     max_reps: int
@@ -141,14 +141,31 @@ class WorkoutSlot:
 @dataclass # is basically a workout slot combined with a specific exercise
 class WorkoutExercise:
     exercise: Exercise
+    emphasis: TrainingGoal
     sets: int
     min_reps: int
     max_reps: int
     rest_seconds: int
+    recommended_weight: float | None = None
 
     def __str__(self):
         return f"{self.exercise.name} \n{self.sets} x {self.min_reps} - {self.max_reps} \nRest: {self.rest_seconds} seconds"
 
+
+@dataclass
+class CompletedSet:
+    reps: int
+    weight: float
+
+@dataclass
+class CompletedExercise:
+    workout_exercise: WorkoutExercise
+    completed_sets: list[CompletedSet] = field(default_factory=list)
+
+@dataclass
+class CompletedWorkout:
+    workout: Workout # workout is what was recommended for you to do
+    completed_exercises: list[CompletedExercise] = field(default_factory=list)
 
 
 

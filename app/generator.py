@@ -46,10 +46,32 @@ def select_exercise(user: UserProfile, candidate_ids: set[str], already_selected
 
 # returns either the strength or hypertrophy suitability level depending upon what the slot requires
 def suitability_checker(slot: WorkoutSlot, exercise_id: str) -> int: 
-    if slot.trainingEmphasis == TrainingGoal.STRENGTH:
+    if slot.training_emphasis == TrainingGoal.STRENGTH:
         return EXERCISES[exercise_id].strength_suitability
-    elif slot.trainingEmphasis == TrainingGoal.HYPERTROPHY:
+    elif slot.training_emphasis == TrainingGoal.HYPERTROPHY:
         return EXERCISES[exercise_id].hypertrophy_suitability
+
+# return True if the user performed at least the recommended number of sets, reps, and weight
+# should consider a situation in which the user increases the weight on their own but their reps fall under the max reps
+def should_increase_weight(completed_exercise: CompletedExercise) -> bool:
+    if len(completed_exercise.completed_sets) < completed_exercise.workout_exercise.sets: return False
+    for completed_set in completed_exercise.completed_sets: # a list of CompletedSet objects each containing reps and weight
+        if not (completed_set.weight >= completed_exercise.workout_exercise.recommended_weight and completed_set.reps >= completed_exercise.workout_exercise.max_reps):
+            return False
+    return True
+
+# returns a completedExercise object correspinding to the given exercise_id containing information about the most recent instance of the exercise
+def get_latest_completed_exercise(exercise_id: str, training_emphasis: TrainingGoal, workout_history: list[CompletedWorkout]) -> CompletedExercise:
+    for completed_workout in reversed(workout_history): # since completed workouts will be appended to the end of the list, more recent
+        # workouts are at higher indices. the reversed() function allows us to visit more recent workouts first with O(1) time complexity
+        for completed_exercise in completed_workout.completed_exercises: # exercises should not be repeated within any given day so order doesnt matter
+            if completed_exercise.workout_exercise.exercise.id == exercise_id and completed_exercise.workout_exercise.emphasis == training_emphasis:
+                return completed_exercise
+    return None
+
+
+def calculate_progressed_weight(completed_exercise: CompletedExercise, increase_percentage: float) -> float:
+    return completed_exercise.workout_exercise.recommended_weight * (1+increase_percentage)
 
  # will generate a workout for a single day
  # returns a list of WorkoutExercise objects as well as the exercises that have been selected that week   
@@ -64,13 +86,13 @@ def generate_workout(profile: UserProfile, template, exercises_used_this_week_id
         selected_id = select_exercise(profile, get_candidates_for_slot(eligible_exercise_ids, slot), selected_exercises_ids, exercises_used_this_week_ids, slot)
         selected_exercises_ids.add(selected_id)
         full_workout.append(
-            WorkoutExercise(exercise=EXERCISES[selected_id], sets=slot.sets, min_reps=slot.min_reps, max_reps=slot.max_reps, rest_seconds=slot.rest_seconds)
+            WorkoutExercise(exercise=EXERCISES[selected_id], emphasis=slot.training_emphasis, sets=slot.sets, min_reps=slot.min_reps, max_reps=slot.max_reps, rest_seconds=slot.rest_seconds)
             )
     exercises_used_this_week_ids |= selected_exercises_ids # adds all exercises selected to the workout to the set containing exercises done that week
     return full_workout, exercises_used_this_week_ids
 
 # weekly_template is a list of tuples 
-def generate_workout_program(profile: UserProfile, weekly_template):
+def generate_workout_program(profile: UserProfile, weekly_template) -> list[list[WorkoutExercise]]:
 
     exercises_used_this_week_ids = set()
 
