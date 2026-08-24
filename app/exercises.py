@@ -73,8 +73,20 @@ BARBELL_ROW = Exercise(
     equipment_required={Equipment.BARBELL}
     )
 
+STRAIGHT_ARM_CABLE_PULLOVER = Exercise(
+    id="straight_arm_cable_pullover", 
+    name="Straight Arm Pulldown",
+    strength_suitability=Suitability_Level.MEDIUM,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
+    primary_muscle=MuscleGroup.BACK, 
+    exercise_type=ExerciseType.ISOLATION, 
+    movement_pattern=MovementPattern.HORIZONTAL_PULL,
+    secondary_muscles=set(), 
+    equipment_required={Equipment.CABLE}
+)
+
 LOW_CABLE_ROW = Exercise(
-    id="LOW_CABLE_ROW", 
+    id="low_cable_row", 
     name="Low Cable Row",
     strength_suitability=Suitability_Level.MEDIUM,
     hypertrophy_suitability=Suitability_Level.HIGH,  
@@ -153,7 +165,7 @@ LEG_EXTENSION = Exercise(
     primary_muscle=MuscleGroup.QUADRICEP, 
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.KNEE_EXTENSION,
-    secondary_muscles={}, # empty set, exclusively targets quads
+    secondary_muscles=set(), # empty set, exclusively targets quads
     equipment_required={Equipment.LEG_EXTENSION_MACHINE}
     )
 
@@ -165,7 +177,7 @@ LEG_CURL = Exercise(
     primary_muscle=MuscleGroup.HAMSTRINGS, 
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.KNEE_FLEXION,
-    secondary_muscles={}, # empty set, exclusively targets hamstrings (currently) 
+    secondary_muscles=set(), # empty set, exclusively targets hamstrings (currently) 
     equipment_required={Equipment.LEG_CURL_MACHINE}
     )
 
@@ -189,7 +201,7 @@ STANDING_CALF_RAISE = Exercise(
     primary_muscle=MuscleGroup.CALVES, 
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.CALF_RAISE,
-    secondary_muscles={}, 
+    secondary_muscles=set(), 
     equipment_required={Equipment.CALF_RAISE_MACHINE}
     )
 
@@ -201,7 +213,7 @@ DUMBBELL_LATERAL_RAISE = Exercise(
     primary_muscle=MuscleGroup.SHOULDERS, 
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.SHOULDER_ABDUCTION,
-    secondary_muscles={}, 
+    secondary_muscles=set(), 
     equipment_required={Equipment.DUMBBELL}
     )
 
@@ -209,11 +221,11 @@ DUMBBELL_BICEP_CURL = Exercise(
     id="dumbbell_bicep_curl", 
     name="Dumbbell Bicep Curl",
     strength_suitability=Suitability_Level.MEDIUM,
-hypertrophy_suitability=Suitability_Level.HIGH,  
+    hypertrophy_suitability=Suitability_Level.HIGH,  
     primary_muscle=MuscleGroup.BICEPS, 
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.ELBOW_FLEXION,
-    secondary_muscles={}, 
+    secondary_muscles=set(), 
     equipment_required={Equipment.DUMBBELL}
     )
 
@@ -237,7 +249,7 @@ TRICEPS_PUSHDOWN = Exercise(
     primary_muscle=MuscleGroup.TRICEPS, 
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.ELBOW_EXTENSION,
-    secondary_muscles={}, 
+    secondary_muscles=set(), 
     equipment_required={Equipment.CABLE}
     )
 
@@ -249,9 +261,33 @@ OVERHEAD_TRICEPS_EXTENSION = Exercise(
     primary_muscle=MuscleGroup.TRICEPS, 
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.ELBOW_EXTENSION,
-    secondary_muscles={}, 
+    secondary_muscles=set(), 
     equipment_required={Equipment.CABLE}
     )
+
+PEC_DECK_FLY = Exercise(
+    id="pec_deck_fly", 
+    name="Chest Fly",
+    strength_suitability=Suitability_Level.MEDIUM,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
+    primary_muscle=MuscleGroup.CHEST, 
+    exercise_type=ExerciseType.ISOLATION, 
+    movement_pattern=MovementPattern.HORIZONTAL_PUSH,
+    secondary_muscles=set(), 
+    equipment_required={Equipment.PEC_DECK_MACHINE}
+)
+
+REVERSE_PEC_DECK = Exercise(
+    id="reverse_pec_deck", 
+    name="Rear Delt Fly",
+    strength_suitability=Suitability_Level.MEDIUM,
+    hypertrophy_suitability=Suitability_Level.HIGH,  
+    primary_muscle=MuscleGroup.TRICEPS, 
+    exercise_type=ExerciseType.ISOLATION, 
+    movement_pattern=MovementPattern.HORIZONTAL_PULL,
+    secondary_muscles=set(), 
+    equipment_required={Equipment.PEC_DECK_MACHINE}
+)
 
 EXERCISES = {
     BARBELL_BENCH_PRESS.id: BARBELL_BENCH_PRESS,
@@ -260,6 +296,7 @@ EXERCISES = {
     OVERHEAD_PRESS.id: OVERHEAD_PRESS,
     CABLE_FLY.id: CABLE_FLY,
     BARBELL_ROW.id: BARBELL_ROW,
+    STRAIGHT_ARM_CABLE_PULLOVER.id: STRAIGHT_ARM_CABLE_PULLOVER,
     LOW_CABLE_ROW.id: LOW_CABLE_ROW,
     LAT_PULLDOWN.id: LAT_PULLDOWN,
     PULL_UP.id: PULL_UP,
@@ -274,7 +311,9 @@ EXERCISES = {
     DUMBBELL_BICEP_CURL.id: DUMBBELL_BICEP_CURL,
     CABLE_BICEP_CURL.id: CABLE_BICEP_CURL,
     TRICEPS_PUSHDOWN.id: TRICEPS_PUSHDOWN,
-    OVERHEAD_TRICEPS_EXTENSION.id: OVERHEAD_TRICEPS_EXTENSION
+    OVERHEAD_TRICEPS_EXTENSION.id: OVERHEAD_TRICEPS_EXTENSION,
+    PEC_DECK_FLY.id: PEC_DECK_FLY,
+    REVERSE_PEC_DECK.id: REVERSE_PEC_DECK
 }
 
 def main():

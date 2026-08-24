@@ -25,6 +25,7 @@ class Equipment(Enum):
     LEG_EXTENSION_MACHINE = "leg_extension_machine"
     LEG_CURL_MACHINE = "leg_curl_machine"
     CALF_RAISE_MACHINE = "calf_raise_machine"
+    PEC_DECK_MACHINE = "pec_deck_machine"
     BODYWEIGHT = "bodyweight"
 
 class MuscleGroup(Enum):
@@ -116,6 +117,15 @@ class UserProfile:
     avoided_exercise_ids: set[str] = field(default_factory=set)
 
     preferred_exercise_ids: set[str] = field(default_factory=set)
+
+@dataclass
+class Workout:
+    workout_type: WorkoutType
+    exercises: list[Exercise] = field(default_factory=list)
+
+@dataclass
+class WorkoutProgram:
+    workouts: list[Workout] = field(default_factory=list)
 
 @dataclass
 class WorkoutSlot:
