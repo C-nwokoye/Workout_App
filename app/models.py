@@ -149,13 +149,17 @@ class WorkoutExercise:
     recommended_weight: float | None = None
 
     def __str__(self):
-        return f"{self.exercise.name} \n{self.sets} x {self.min_reps} - {self.max_reps} \nRest: {self.rest_seconds} seconds"
+        return f"{self.exercise.name} \n{self.sets} x {self.min_reps} - {self.max_reps} \nRecommended weight: {self.recommended_weight} \nRest: {self.rest_seconds} seconds"
 
 
 @dataclass
 class CompletedSet:
     reps: int
     weight: float
+
+    def __lt__(self, other: CompletedSet) -> bool:
+        return self.weight < other.weight
+    
 
 @dataclass
 class CompletedExercise:

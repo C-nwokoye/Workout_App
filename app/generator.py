@@ -73,9 +73,24 @@ def get_latest_completed_exercise(exercise_id: str, training_emphasis: TrainingG
 def calculate_progressed_weight(completed_exercise: CompletedExercise, increase_percentage: float) -> float:
     return completed_exercise.workout_exercise.recommended_weight * (1+increase_percentage)
 
+def get_next_recommended_weight(exercise_id: str, training_emphasis: TrainingGoal, workout_history: list[CompletedWorkout]) -> float | None:
+    completed_exercise = get_latest_completed_exercise(exercise_id, training_emphasis, workout_history)
+    if not completed_exercise: # will be none if the user has not done this exercise previously
+        return None
+    # here we can assume the user has completed the exercise at least once before
+    if not completed_exercise.workout_exercise.recommended_weight: # will be none if user has only done the exercise once
+        # want to return the minimum weight of the sets they did
+        return min(completed_exercise.completed_sets).weight
+    # here we can assume the user has completed the exercise at least twice and has a recommended weight
+    if should_increase_weight(completed_exercise):
+        return calculate_progressed_weight(completed_exercise, increase_percentage=0.05)
+    else:
+        return completed_exercise.workout_exercise.recommended_weight
+
+
  # will generate a workout for a single day
  # returns a list of WorkoutExercise objects as well as the exercises that have been selected that week   
-def generate_workout(profile: UserProfile, template, exercises_used_this_week_ids: set[str]) -> list[WorkoutExercise]:
+def generate_workout(profile: UserProfile, template, exercises_used_this_week_ids: set[str], workout_history: list[CompletedWorkout]) -> list[WorkoutExercise]:
 
     eligible_exercise_ids = get_eligible_exercises(profile)
 
@@ -86,20 +101,27 @@ def generate_workout(profile: UserProfile, template, exercises_used_this_week_id
         selected_id = select_exercise(profile, get_candidates_for_slot(eligible_exercise_ids, slot), selected_exercises_ids, exercises_used_this_week_ids, slot)
         selected_exercises_ids.add(selected_id)
         full_workout.append(
-            WorkoutExercise(exercise=EXERCISES[selected_id], emphasis=slot.training_emphasis, sets=slot.sets, min_reps=slot.min_reps, max_reps=slot.max_reps, rest_seconds=slot.rest_seconds)
-            )
-    exercises_used_this_week_ids |= selected_exercises_ids # adds all exercises selected to the workout to the set containing exercises done that week
+            WorkoutExercise(
+                exercise=EXERCISES[selected_id], emphasis=slot.training_emphasis, sets=slot.sets, min_reps=slot.min_reps, 
+                max_reps=slot.max_reps, rest_seconds=slot.rest_seconds, 
+                recommended_weight=get_next_recommended_weight(selected_id, slot.training_emphasis, workout_history)
+                )
+            ) 
+    exercises_used_this_week_ids |= selected_exercises_ids # adds all exercises selected for the workout to the set containing exercises done that week
     return full_workout, exercises_used_this_week_ids
 
 # weekly_template is a list of tuples 
-def generate_workout_program(profile: UserProfile, weekly_template) -> list[list[WorkoutExercise]]:
+def generate_workout_program(profile: UserProfile, weekly_template, workout_history: list[CompletedWorkout]) -> list[list[WorkoutExercise]]:
 
     exercises_used_this_week_ids = set()
 
     program = []
 
     for template in weekly_template: 
-        day, exercises_used_this_week_ids = generate_workout(profile, template[1], exercises_used_this_week_ids)
-        program.append(day)
+        day, exercises_used_this_week_ids = generate_workout(profile, template[1], exercises_used_this_week_ids, workout_history)
+        program.append(day) 
+
+    # workout_history list will be updated with completed workouts before this function is called again.
+    
     return program
 
