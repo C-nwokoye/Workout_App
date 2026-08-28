@@ -1,5 +1,6 @@
 from enum import Enum
 from dataclasses import dataclass, field
+from datetime import datetime
 
 class TrainingGoal(Enum):
     STRENGTH = "strength" 
@@ -170,6 +171,8 @@ class CompletedExercise:
 class CompletedWorkout:
     workout: Workout # workout is what was recommended for you to do
     completed_exercises: list[CompletedExercise] = field(default_factory=list)
+    completed_at: str = field(default_factory=lambda: datetime.now().isoformat())
+    # iso 8601 format sorts correctly as text
 
 
 

@@ -63,7 +63,7 @@ completed_exercise_0 = CompletedExercise(
     ]
 )
 completed_exercise_1 = CompletedExercise(
-    WorkoutExercise(LEG_PRESS, TrainingGoal.HYPERTROPHY, 3, 8, 10, 90, 90),
+    WorkoutExercise(LEG_PRESS, TrainingGoal.HYPERTROPHY, 3, 6, 8, 90, 90),
     [
         CompletedSet(10, 95),
         CompletedSet(10, 95),
@@ -117,9 +117,9 @@ program = generate_workout_program(user_profile_1, FIVE_DAY_TEMPLATE, [CW0, CW1,
 #     for item in day:
 #         print(item)
 #         print()
-
-connection = get_connection()
-print(connection)
-connection.close()
+conn = get_connection()
+initialize_full_schema(conn)
+conn.close()
+save_completed_workout(CW0)
 
 
