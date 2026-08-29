@@ -1,2 +1,3 @@
 practice_db.py
 *.db
+tests/test_intro.py
