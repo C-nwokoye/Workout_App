@@ -161,8 +161,8 @@ def main():
     from app.database import save_completed_workout, initialize_full_schema
 
     for cw in build_sample_completed_workouts():
-        initialize_full_schema()
-        workout_id = save_completed_workout(cw)
+        initialize_full_schema(db_name="test.db")
+        workout_id = save_completed_workout(cw, db_name="test.db")
         print(f"Saved workout_id={workout_id} ({cw.workout.workout_type.value}, {cw.completed_at})")
 
 

@@ -158,7 +158,7 @@ class CompletedSet:
     reps: int
     weight: float
 
-    def __lt__(self, other: CompletedSet) -> bool:
+    def __lt__(self, other) -> bool:
         return self.weight < other.weight
     
 

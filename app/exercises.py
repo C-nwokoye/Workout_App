@@ -282,10 +282,10 @@ REVERSE_PEC_DECK = Exercise(
     name="Rear Delt Fly",
     strength_suitability=Suitability_Level.MEDIUM,
     hypertrophy_suitability=Suitability_Level.HIGH,  
-    primary_muscle=MuscleGroup.TRICEPS, 
+    primary_muscle=MuscleGroup.SHOULDERS, 
     exercise_type=ExerciseType.ISOLATION, 
     movement_pattern=MovementPattern.HORIZONTAL_PULL,
-    secondary_muscles=set(), 
+    secondary_muscles=set(),
     equipment_required={Equipment.PEC_DECK_MACHINE}
 )
 
