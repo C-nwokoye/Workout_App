@@ -8,28 +8,28 @@ import app.generator as generator
 
 FAKE_BENCH = Exercise(
     id="fake_bench", name="Fake Bench", primary_muscle=MuscleGroup.CHEST,
-    strength_suitability=Suitability_Level.HIGH, hypertrophy_suitability=Suitability_Level.HIGH,
+    strength_suitability=SuitabilityLevel.HIGH, hypertrophy_suitability=SuitabilityLevel.HIGH,
     exercise_type=ExerciseType.COMPOUND, movement_pattern=MovementPattern.HORIZONTAL_PUSH,
     equipment_required={Equipment.BARBELL, Equipment.BENCH},
 )
 
 FAKE_BENCH_2 = Exercise(
     id="fake_bench_2", name="Fake Bench 2", primary_muscle=MuscleGroup.CHEST,
-    strength_suitability=Suitability_Level.HIGH, hypertrophy_suitability=Suitability_Level.HIGH,
+    strength_suitability=SuitabilityLevel.HIGH, hypertrophy_suitability=SuitabilityLevel.HIGH,
     exercise_type=ExerciseType.COMPOUND, movement_pattern=MovementPattern.HORIZONTAL_PUSH,
     equipment_required={Equipment.BARBELL, Equipment.BENCH},
 )
 
 FAKE_INCLINE = Exercise(
     id="fake_incline", name="Fake Incline", primary_muscle=MuscleGroup.CHEST,
-    strength_suitability=Suitability_Level.MEDIUM, hypertrophy_suitability=Suitability_Level.HIGH,
+    strength_suitability=SuitabilityLevel.MEDIUM, hypertrophy_suitability=SuitabilityLevel.HIGH,
     exercise_type=ExerciseType.COMPOUND, movement_pattern=MovementPattern.HORIZONTAL_PUSH,
     equipment_required={Equipment.DUMBBELL, Equipment.BENCH},
 )
 
 FAKE_FLY = Exercise(
     id="fake_fly", name="Fake Fly", primary_muscle=MuscleGroup.CHEST,
-    strength_suitability=Suitability_Level.LOW, hypertrophy_suitability=Suitability_Level.HIGH,
+    strength_suitability=SuitabilityLevel.LOW, hypertrophy_suitability=SuitabilityLevel.HIGH,
     exercise_type=ExerciseType.COMPOUND, movement_pattern=MovementPattern.HORIZONTAL_PUSH,
     equipment_required={Equipment.CABLE},
 )

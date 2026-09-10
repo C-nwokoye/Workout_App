@@ -78,7 +78,7 @@ class WorkoutType(Enum):
     PULL_HYPERTROPHY = "pull_hypertrophy"
     LEGS_HYPERTROPHY = "legs_hypertrophy"
 
-class Suitability_Level(Enum):
+class SuitabilityLevel(Enum):
     LOW = 1
     MEDIUM = 2
     HIGH = 3
@@ -91,8 +91,8 @@ class Exercise:
     name: str
     primary_muscle: MuscleGroup
 
-    strength_suitability: Suitability_Level
-    hypertrophy_suitability: Suitability_Level
+    strength_suitability: SuitabilityLevel
+    hypertrophy_suitability: SuitabilityLevel
     # will be a set of muscle_groups, field(default_factory = set) just initializes an empty set
     # we use a set not a list because we dont care about order
 
