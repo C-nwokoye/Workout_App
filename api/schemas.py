@@ -32,9 +32,8 @@ class CompletedExerciseSchema(BaseModel):
     completed_sets: list[CompletedSetSchema]
 
 class WorkoutSchema(BaseModel):
-    Workout()
     workout_type: WorkoutType
-    exercises: list[ExerciseSchema]
+    exercises: list[WorkoutExerciseSchema]
 
 class CompletedWorkoutSchema(BaseModel):
     workout: WorkoutSchema

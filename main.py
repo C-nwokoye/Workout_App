@@ -2,6 +2,7 @@ from app.models import *
 from app.exercises import *
 from app.generator import *
 from app.database import *
+from api.schemas import *
 
 
 def print_workout_history(history: list[CompletedWorkout]) -> None:
@@ -27,42 +28,65 @@ def print_workout_history(history: list[CompletedWorkout]) -> None:
 
 def main():
     # when using Enums in python, use the member itself. only refer to the name when moving outside python
-    user_profile_1 = UserProfile(
-        goal=TrainingGoal.STRENGTH,
-        experience=ExperienceLevel.ADVANCED,
-        days_per_week=5,
-        max_workout_minutes=60,
-        available_equipment={Equipment.BENCH, Equipment.DUMBBELL, Equipment.BARBELL, Equipment.SQUAT_RACK, Equipment.CABLE,
-                            Equipment.CALF_RAISE_MACHINE, Equipment.LAT_PULLDOWN_MACHINE, Equipment.LEG_CURL_MACHINE, Equipment.LEG_EXTENSION_MACHINE,
-                            Equipment.LEG_PRESS_MACHINE, Equipment.LOW_CABLE_ROW_MACHINE, Equipment.PULL_UP_BAR, Equipment.SMITH_MACHINE,
-                            Equipment.PEC_DECK_MACHINE},
-        excluded_exercise_ids={BACK_SQUAT.id},
-        avoided_exercise_ids={BULGARIAN_SPLIT_SQUAT.id},
-        preferred_exercise_ids={INCLINE_DUMBBELL_BENCH_PRESS.id}
+    # user_profile_1 = UserProfile(
+    #     goal=TrainingGoal.STRENGTH,
+    #     experience=ExperienceLevel.ADVANCED,
+    #     days_per_week=5,
+    #     max_workout_minutes=60,
+    #     available_equipment={Equipment.BENCH, Equipment.DUMBBELL, Equipment.BARBELL, Equipment.SQUAT_RACK, Equipment.CABLE,
+    #                         Equipment.CALF_RAISE_MACHINE, Equipment.LAT_PULLDOWN_MACHINE, Equipment.LEG_CURL_MACHINE, Equipment.LEG_EXTENSION_MACHINE,
+    #                         Equipment.LEG_PRESS_MACHINE, Equipment.LOW_CABLE_ROW_MACHINE, Equipment.PULL_UP_BAR, Equipment.SMITH_MACHINE,
+    #                         Equipment.PEC_DECK_MACHINE},
+    #     excluded_exercise_ids={BACK_SQUAT.id},
+    #     avoided_exercise_ids={BULGARIAN_SPLIT_SQUAT.id},
+    #     preferred_exercise_ids={INCLINE_DUMBBELL_BENCH_PRESS.id}
+    # )
+
+    # user_profile_2 = UserProfile(
+    #     goal=TrainingGoal.STRENGTH,
+    #     experience=ExperienceLevel.ADVANCED,
+    #     days_per_week=5,
+    #     max_workout_minutes=60,
+    #     available_equipment={Equipment.BODYWEIGHT},
+    #     excluded_exercise_ids={BACK_SQUAT.id},
+    #     avoided_exercise_ids={BULGARIAN_SPLIT_SQUAT.id},
+    #     preferred_exercise_ids={INCLINE_DUMBBELL_BENCH_PRESS.id}
+    # )
+
+    # initialize_full_schema() # ensures a database exists
+    # workout_history = load_full_history() # gets the workout history from our SQL database
+
+    # program = generate_workout_program(profile=user_profile_1, weekly_template=FIVE_DAY_TEMPLATE, workout_history=workout_history)
+
+    # for i, day in enumerate(program):
+    #     print(FIVE_DAY_TEMPLATE[i][0])
+    #     for workout in day:
+    #         print(workout)
+    #         print()
+    we = WorkoutExercise(
+    exercise=BARBELL_BENCH_PRESS,
+    emphasis=TrainingGoal.STRENGTH,
+    sets=4, min_reps=4, max_reps=6, rest_seconds=180,
+    recommended_weight=185.0,
     )
 
-    user_profile_2 = UserProfile(
-        goal=TrainingGoal.STRENGTH,
-        experience=ExperienceLevel.ADVANCED,
-        days_per_week=5,
-        max_workout_minutes=60,
-        available_equipment={Equipment.BODYWEIGHT},
-        excluded_exercise_ids={BACK_SQUAT.id},
-        avoided_exercise_ids={BULGARIAN_SPLIT_SQUAT.id},
-        preferred_exercise_ids={INCLINE_DUMBBELL_BENCH_PRESS.id}
+    workout = Workout(
+        workout_type=WorkoutType.UPPER_STRENGTH,
+        exercises=[we],
     )
 
-    initialize_full_schema() # ensures a database exists
-    workout_history = load_full_history() # gets the workout history from our SQL database
+    ce = CompletedExercise(
+        workout_exercise=we,
+        completed_sets=[CompletedSet(reps=6, weight=185.0), CompletedSet(reps=5, weight=185.0)],
+    )
 
-    program = generate_workout_program(profile=user_profile_1, weekly_template=FIVE_DAY_TEMPLATE, workout_history=workout_history)
+    cw = CompletedWorkout(
+        workout=workout,
+        completed_exercises=[ce],
+    )
 
-    for i, day in enumerate(program):
-        print(FIVE_DAY_TEMPLATE[i][0])
-        for workout in day:
-            print(workout)
-            print()
-
+    schema = CompletedWorkoutSchema.model_validate(cw, from_attributes=True)
+    print(schema.workout.exercises[0].exercise.id)
     
 
     

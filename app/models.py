@@ -120,15 +120,6 @@ class UserProfile:
     preferred_exercise_ids: set[str] = field(default_factory=set)
 
 @dataclass
-class Workout:
-    workout_type: WorkoutType
-    exercises: list[Exercise] = field(default_factory=list)
-
-@dataclass
-class WorkoutProgram:
-    workouts: list[Workout] = field(default_factory=list)
-
-@dataclass
 class WorkoutSlot:
     movement_pattern: MovementPattern
     exercise_type: ExerciseType
@@ -152,6 +143,15 @@ class WorkoutExercise:
     def __str__(self):
         return f"{self.exercise.name} \n{self.sets} x {self.min_reps} - {self.max_reps} \nRecommended weight: {self.recommended_weight} \nRest: {self.rest_seconds} seconds"
 
+@dataclass
+class Workout:
+    workout_type: WorkoutType
+    exercises: list[WorkoutExercise] = field(default_factory=list)
+    # holds the exercises and prescriptions for a given workout
+
+@dataclass
+class WorkoutProgram:
+    workouts: list[Workout] = field(default_factory=list)
 
 @dataclass
 class CompletedSet:
