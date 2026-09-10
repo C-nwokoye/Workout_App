@@ -50,6 +50,8 @@ def suitability_checker(slot: WorkoutSlot, exercise_id: str) -> int:
         return EXERCISES[exercise_id].strength_suitability
     elif slot.training_emphasis == TrainingGoal.HYPERTROPHY:
         return EXERCISES[exercise_id].hypertrophy_suitability
+    else:
+        raise ValueError(f"{slot.training_emphasis} is invalid, no suitibalility level to return")
 
 # return True if the user performed at least the recommended number of sets, reps, and weight
 # should consider a situation in which the user increases the weight on their own but their reps fall under the max reps
