@@ -137,7 +137,7 @@ def _reconstruct_completed_workout(rows):
 
     workout = Workout(
         workout_type=workout_type,
-        exercises=[ce.workout_exercise.exercise for ce in completed_exercises],
+        exercises=[ce.workout_exercise for ce in completed_exercises],
     )
 
     return CompletedWorkout(
